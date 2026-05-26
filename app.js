@@ -1296,3 +1296,21 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+/* Re-check Firebase when phone wakes up / tab becomes visible */
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState !== 'visible') return;
+  const remoteWeek = await FB.getWeek();
+  if (!remoteWeek?.weekStart) return;
+  const localStart  = state.week?.weekStart || '';
+  if (remoteWeek.weekStart > localStart) {
+    state.week = remoteWeek;
+    LS.set('mp_weekData', remoteWeek);
+    showApp();
+    renderPlanTab(state.person);
+    renderGroceryTab();
+    renderPrepTab();
+    renderSettingsTab();
+    showToast(`New week synced: ${remoteWeek.weekOf}`);
+  }
+});
