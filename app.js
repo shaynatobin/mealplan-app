@@ -3,6 +3,28 @@
    Phase: 1 (shell) + 2 (load week) + 3 (meal plan view)
 ════════════════════════════════════════════════════ */
 
+/* ─── FIREBASE CONFIG ─────────────────────────────── */
+const FIREBASE_URL = 'https://mealplan-app-a267f-default-rtdb.firebaseio.com';
+
+const FB = {
+  async getWeek() {
+    try {
+      const res = await fetch(`${FIREBASE_URL}/weekData.json`);
+      if (!res.ok) return null;
+      return await res.json();
+    } catch { return null; }
+  },
+  async setWeek(data) {
+    try {
+      await fetch(`${FIREBASE_URL}/weekData.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+    } catch { /* offline — localStorage already saved */ }
+  },
+};
+
 /* ─── DEFAULTS ────────────────────────────────────── */
 const DEFAULT_TARGETS = {
   shane:  { protein: 165, carbs: 260, fat: 30, fiber: 38, calories: 2050 },
@@ -876,9 +898,10 @@ function validateAndLoadWeek() {
     return;
   }
 
-  /* All good — save and render */
+  /* All good — save locally, push to Firebase, and render */
   state.week = parsed;
   LS.set('mp_weekData', parsed);
+  FB.setWeek(parsed);
   closeLoadWeekModal();
   showApp();
   renderPlanTab(state.person);
@@ -1247,10 +1270,22 @@ function bindGlobalEvents() {
 }
 
 /* ─── INIT ────────────────────────────────────────── */
-function init() {
+async function init() {
   loadFromStorage();
   applyPersonTheme(state.person);
   bindGlobalEvents();
+
+  /* Try to pull the latest week from Firebase */
+  const remoteWeek = await FB.getWeek();
+  if (remoteWeek && remoteWeek.weekStart) {
+    const localStart  = state.week?.weekStart || '';
+    const remoteStart = remoteWeek.weekStart  || '';
+    /* Use whichever is newer */
+    if (!state.week || remoteStart >= localStart) {
+      state.week = remoteWeek;
+      LS.set('mp_weekData', remoteWeek);
+    }
+  }
 
   if (state.week) {
     showApp();
