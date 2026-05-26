@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Meal Plan" />
+  <meta name="theme-color" content="#FAF8F4" id="meta-theme-color" />
+  <title>Meal Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       WELCOME SCREEN (shown when no week is loaded)
+  ═══════════════════════════════════════════════ -->
+  <div id="welcome-screen" class="welcome-screen hidden">
+    <div class="welcome-inner">
+      <div class="welcome-logo">🥗</div>
+      <h1 class="welcome-title">Meal Plan</h1>
+      <p class="welcome-sub">Shane &amp; Shayna's weekly hub</p>
+      <p class="welcome-desc">Paste your weekly meal plan JSON to get started.</p>
+      <button class="btn btn-primary btn-lg" id="welcome-load-btn">📋 Load This Week's Plan</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       MAIN APP (shown once week is loaded)
+  ═══════════════════════════════════════════════ -->
+  <div id="app" class="app hidden">
+
+    <!-- Header -->
+    <header class="app-header" id="app-header">
+      <div class="header-inner">
+        <div class="header-week" id="header-week">Week of —</div>
+        <h1 class="header-title">Meal Plan</h1>
+      </div>
+    </header>
+
+    <!-- Tab content area -->
+    <main class="app-main" id="app-main">
+
+      <!-- ── PLAN TAB ── -->
+      <section class="tab-panel" id="tab-plan">
+        <!-- Person toggle -->
+        <div class="person-toggle-wrap">
+          <div class="person-toggle" id="person-toggle">
+            <button class="person-btn active" data-person="shane" id="btn-shane">💪 Shane</button>
+            <button class="person-btn" data-person="shayna" id="btn-shayna">🌿 Shayna</button>
+          </div>
+        </div>
+        <!-- Day cards injected here -->
+        <div class="day-cards" id="day-cards"></div>
+      </section>
+
+      <!-- ── GROCERY TAB ── -->
+      <section class="tab-panel hidden" id="tab-grocery">
+        <div class="grocery-filters">
+          <button class="filter-btn active" data-filter="need">🛒 Need to Buy</button>
+          <button class="filter-btn" data-filter="have">✅ Already Have</button>
+          <button class="filter-btn" data-filter="all">📋 All</button>
+        </div>
+        <div id="grocery-list"></div>
+        <div class="grocery-footer">
+          <button class="btn btn-outline btn-sm" id="grocery-reset-btn">Reset Week</button>
+        </div>
+      </section>
+
+      <!-- ── PREP TAB ── -->
+      <section class="tab-panel hidden" id="tab-prep">
+        <div id="prep-cards"></div>
+      </section>
+
+      <!-- ── SETTINGS TAB ── -->
+      <section class="tab-panel hidden" id="tab-settings">
+        <div id="settings-content"></div>
+      </section>
+
+    </main>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav" id="bottom-nav">
+      <button class="nav-btn active" data-tab="plan">
+        <span class="nav-icon">📅</span>
+        <span class="nav-label">Plan</span>
+      </button>
+      <button class="nav-btn" data-tab="grocery">
+        <span class="nav-icon">🛒</span>
+        <span class="nav-label">Grocery</span>
+      </button>
+      <button class="nav-btn" data-tab="prep">
+        <span class="nav-icon">🍳</span>
+        <span class="nav-label">Prep</span>
+      </button>
+      <button class="nav-btn" data-tab="settings">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Settings</span>
+      </button>
+    </nav>
+
+  </div><!-- /#app -->
+
+  <!-- ═══════════════════════════════════════════════
+       LOAD WEEK MODAL
+  ═══════════════════════════════════════════════ -->
+  <div class="modal-overlay hidden" id="modal-load-week">
+    <div class="modal modal-tall">
+      <div class="modal-header">
+        <button class="modal-back" id="load-week-back">←</button>
+        <h2 class="modal-title">Load Week</h2>
+        <div style="width:40px"></div>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Paste your weekly meal plan JSON below. Generate it each Sunday with the meal planning prompt in Claude.</p>
+        <textarea
+          id="json-paste-area"
+          class="json-textarea"
+          placeholder='{ "weekOf": "June 30 – July 6, 2025", ... }'
+          spellcheck="false"
+        ></textarea>
+        <div class="json-error hidden" id="json-error"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="load-week-cancel">Cancel</button>
+        <button class="btn btn-primary" id="load-week-confirm">✓ Validate &amp; Load</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOD SWAP MODAL
+  ═══════════════════════════════════════════════ -->
+  <div class="modal-overlay hidden" id="modal-swap">
+    <div class="modal modal-fullscreen">
+      <div class="modal-header">
+        <button class="modal-back" id="swap-back">←</button>
+        <h2 class="modal-title" id="swap-modal-title">Swap Meal</h2>
+        <div style="width:40px"></div>
+      </div>
+      <div class="swap-mode-toggle">
+        <button class="swap-mode-btn active" data-mode="search" id="swap-mode-search">🔍 Search</button>
+        <button class="swap-mode-btn" data-mode="scan" id="swap-mode-scan">📷 Scan</button>
+      </div>
+      <div class="modal-body swap-body">
+
+        <!-- Search mode -->
+        <div id="swap-search-panel">
+          <div class="search-bar-wrap">
+            <input type="text" id="swap-search-input" class="search-input" placeholder="Search foods…" autocomplete="off" />
+            <button class="btn btn-sm btn-primary" id="swap-search-btn">Search</button>
+          </div>
+          <div class="search-source-toggle">
+            <button class="source-btn active" data-source="usda">Whole Foods</button>
+            <button class="source-btn" data-source="off">Packaged</button>
+          </div>
+          <div id="swap-search-results" class="search-results"></div>
+        </div>
+
+        <!-- Scan mode -->
+        <div id="swap-scan-panel" class="hidden">
+          <div id="qr-reader" class="qr-reader"></div>
+          <p class="scan-hint">Point camera at a barcode</p>
+          <div id="scan-result-panel" class="hidden"></div>
+        </div>
+
+        <!-- Serving adjuster + confirm (shared) -->
+        <div id="swap-confirm-panel" class="hidden">
+          <div class="swap-confirm-card" id="swap-confirm-card"></div>
+          <div class="modal-footer">
+            <button class="btn btn-outline" id="swap-cancel-btn">Cancel</button>
+            <button class="btn btn-primary" id="swap-confirm-btn">✓ Confirm Swap</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       TOAST
+  ═══════════════════════════════════════════════ -->
+  <div class="toast hidden" id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

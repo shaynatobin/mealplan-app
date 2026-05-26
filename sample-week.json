@@ -1,0 +1,490 @@
+{
+  "weekOf": "June 30 – July 6, 2025",
+  "weekStart": "2025-06-30",
+  "shane": {
+    "days": [
+      {
+        "date": "2025-06-30",
+        "dayLabel": "Mon",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "Oats & Greek Yogurt Bowl",
+            "items": ["1 cup 0% Greek yogurt", "¾ cup rolled oats", "1 tbsp honey", "½ cup strawberries"],
+            "macros": { "protein": 42, "carbs": 68, "fat": 6, "fiber": 5, "calories": 494 }
+          },
+          "lunch": {
+            "name": "Chicken & Rice Bowl",
+            "items": ["6oz grilled chicken breast", "1 cup jasmine rice", "1 cup roasted broccoli", "coconut aminos"],
+            "macros": { "protein": 52, "carbs": 72, "fat": 5, "fiber": 4, "calories": 549 }
+          },
+          "snacks": {
+            "name": "Pre-workout + Afternoon",
+            "items": ["100g banana", "235g Gala apple", "Protein shake (30g protein)", "Creatine"],
+            "macros": { "protein": 32, "carbs": 52, "fat": 1, "fiber": 7, "calories": 345 }
+          },
+          "dinner": {
+            "name": "Crockpot Beef Taco Bowl",
+            "items": ["6oz shredded beef chuck", "¾ cup brown rice", "½ cup black beans", "Pico de gallo, lime"],
+            "macros": { "protein": 48, "carbs": 68, "fat": 15, "fiber": 10, "calories": 607 },
+            "gfSwap": null
+          }
+        }
+      },
+      {
+        "date": "2025-07-01",
+        "dayLabel": "Tue",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "Egg White Scramble & Toast",
+            "items": ["1 cup egg whites", "2 slices whole wheat toast", "½ cup spinach", "1 slice low-fat cheese"],
+            "macros": { "protein": 44, "carbs": 44, "fat": 5, "fiber": 3, "calories": 401 }
+          },
+          "lunch": {
+            "name": "Turkey Meatball Bowl",
+            "items": ["7oz turkey meatballs", "1 cup farro", "Roasted zucchini", "Marinara sauce"],
+            "macros": { "protein": 50, "carbs": 65, "fat": 9, "fiber": 6, "calories": 541 }
+          },
+          "snacks": {
+            "name": "Pre-workout + Afternoon",
+            "items": ["100g banana", "235g Gala apple", "Protein shake (30g protein)", "Creatine"],
+            "macros": { "protein": 32, "carbs": 52, "fat": 1, "fiber": 7, "calories": 345 }
+          },
+          "dinner": {
+            "name": "Sheet Pan Salmon & Sweet Potato",
+            "items": ["7oz salmon fillet", "1 medium sweet potato", "1 cup green beans", "Lemon-garlic drizzle"],
+            "macros": { "protein": 46, "carbs": 52, "fat": 14, "fiber": 7, "calories": 530 },
+            "gfSwap": null
+          }
+        }
+      },
+      {
+        "date": "2025-07-02",
+        "dayLabel": "Wed",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "Oats & Greek Yogurt Bowl",
+            "items": ["1 cup 0% Greek yogurt", "¾ cup rolled oats", "1 tbsp honey", "½ cup blueberries"],
+            "macros": { "protein": 42, "carbs": 70, "fat": 6, "fiber": 6, "calories": 498 }
+          },
+          "lunch": {
+            "name": "Chicken & Rice Bowl",
+            "items": ["6oz grilled chicken breast", "1 cup jasmine rice", "1 cup roasted asparagus", "Coconut aminos"],
+            "macros": { "protein": 52, "carbs": 70, "fat": 5, "fiber": 4, "calories": 541 }
+          },
+          "snacks": {
+            "name": "Pre-workout + Afternoon",
+            "items": ["100g banana", "235g Gala apple", "Protein shake (30g protein)", "Creatine"],
+            "macros": { "protein": 32, "carbs": 52, "fat": 1, "fiber": 7, "calories": 345 }
+          },
+          "dinner": {
+            "name": "Ground Turkey Stir-Fry",
+            "items": ["6oz ground turkey", "1 cup jasmine rice", "Broccoli, snap peas, carrots", "Coconut aminos, ginger"],
+            "macros": { "protein": 46, "carbs": 62, "fat": 10, "fiber": 6, "calories": 522 },
+            "gfSwap": null
+          }
+        }
+      },
+      {
+        "date": "2025-07-03",
+        "dayLabel": "Thu",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "Egg White Scramble & Toast",
+            "items": ["1 cup egg whites", "2 slices whole wheat toast", "½ cup bell peppers", "Salsa"],
+            "macros": { "protein": 44, "carbs": 46, "fat": 5, "fiber": 4, "calories": 409 }
+          },
+          "lunch": {
+            "name": "Turkey Meatball Bowl",
+            "items": ["7oz turkey meatballs", "1 cup farro", "Roasted Brussels sprouts", "Marinara sauce"],
+            "macros": { "protein": 50, "carbs": 66, "fat": 9, "fiber": 8, "calories": 545 }
+          },
+          "snacks": {
+            "name": "Pre-workout + Afternoon",
+            "items": ["100g banana", "235g Gala apple", "Protein shake (30g protein)", "Creatine"],
+            "macros": { "protein": 32, "carbs": 52, "fat": 1, "fiber": 7, "calories": 345 }
+          },
+          "dinner": {
+            "name": "Crockpot Beef Taco Bowl",
+            "items": ["6oz shredded beef chuck", "¾ cup brown rice", "½ cup pinto beans", "Jalapeño, lime, cilantro"],
+            "macros": { "protein": 48, "carbs": 66, "fat": 15, "fiber": 9, "calories": 599 },
+            "gfSwap": null
+          }
+        }
+      },
+      {
+        "date": "2025-07-04",
+        "dayLabel": "Fri",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "Oats & Greek Yogurt Bowl",
+            "items": ["1 cup 0% Greek yogurt", "¾ cup rolled oats", "1 tbsp honey", "½ cup raspberries"],
+            "macros": { "protein": 42, "carbs": 68, "fat": 6, "fiber": 6, "calories": 494 }
+          },
+          "lunch": {
+            "name": "Chicken & Rice Bowl",
+            "items": ["6oz grilled chicken breast", "1 cup jasmine rice", "Roasted cauliflower", "Coconut aminos"],
+            "macros": { "protein": 52, "carbs": 68, "fat": 5, "fiber": 4, "calories": 537 }
+          },
+          "snacks": {
+            "name": "Pre-workout + Afternoon",
+            "items": ["100g banana", "235g Gala apple", "Protein shake (30g protein)", "Creatine"],
+            "macros": { "protein": 32, "carbs": 52, "fat": 1, "fiber": 7, "calories": 345 }
+          },
+          "dinner": {
+            "name": "Sheet Pan Salmon & Sweet Potato",
+            "items": ["7oz salmon fillet", "1 medium sweet potato", "Roasted broccoli", "Lemon herb"],
+            "macros": { "protein": 46, "carbs": 50, "fat": 14, "fiber": 7, "calories": 526 },
+            "gfSwap": null
+          }
+        }
+      },
+      {
+        "date": "2025-07-05",
+        "dayLabel": "Sat",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "Egg White Scramble & Toast",
+            "items": ["1 cup egg whites", "2 slices whole wheat toast", "½ avocado"],
+            "macros": { "protein": 40, "carbs": 42, "fat": 10, "fiber": 5, "calories": 418 }
+          },
+          "lunch": {
+            "name": "Chicken & Rice Bowl",
+            "items": ["6oz grilled chicken breast", "1 cup jasmine rice", "Roasted broccoli"],
+            "macros": { "protein": 52, "carbs": 70, "fat": 5, "fiber": 4, "calories": 541 }
+          },
+          "snacks": {
+            "name": "Pre-workout + Afternoon",
+            "items": ["100g banana", "235g Gala apple", "Protein shake (30g protein)", "Creatine"],
+            "macros": { "protein": 32, "carbs": 52, "fat": 1, "fiber": 7, "calories": 345 }
+          },
+          "dinner": {
+            "name": "Ground Turkey Taco Bowls",
+            "items": ["6oz ground turkey", "¾ cup brown rice", "½ cup black beans", "Pico, lime, jalapeño"],
+            "macros": { "protein": 48, "carbs": 66, "fat": 12, "fiber": 9, "calories": 572 },
+            "gfSwap": null
+          }
+        }
+      },
+      {
+        "date": "2025-07-06",
+        "dayLabel": "Sun",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "Oats & Greek Yogurt Bowl",
+            "items": ["1 cup 0% Greek yogurt", "¾ cup rolled oats", "1 tbsp honey", "Banana slices"],
+            "macros": { "protein": 42, "carbs": 70, "fat": 6, "fiber": 5, "calories": 498 }
+          },
+          "lunch": {
+            "name": "Turkey Meatball Bowl",
+            "items": ["7oz turkey meatballs", "1 cup farro", "Roasted zucchini & tomatoes", "Marinara"],
+            "macros": { "protein": 50, "carbs": 64, "fat": 9, "fiber": 6, "calories": 537 }
+          },
+          "snacks": {
+            "name": "Pre-workout + Afternoon",
+            "items": ["100g banana", "235g Gala apple", "Protein shake (30g protein)", "Creatine"],
+            "macros": { "protein": 32, "carbs": 52, "fat": 1, "fiber": 7, "calories": 345 }
+          },
+          "dinner": {
+            "name": "Crockpot Beef Taco Bowl",
+            "items": ["6oz shredded beef chuck", "¾ cup brown rice", "½ cup black beans", "Pico de gallo, lime"],
+            "macros": { "protein": 48, "carbs": 68, "fat": 15, "fiber": 10, "calories": 607 },
+            "gfSwap": null
+          }
+        }
+      }
+    ]
+  },
+  "shayna": {
+    "days": [
+      {
+        "date": "2025-06-30",
+        "dayLabel": "Mon",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "GF Avocado Egg Toast",
+            "items": ["2 eggs", "1 slice GF bread", "½ avocado", "Everything bagel seasoning", "Cherry tomatoes"],
+            "macros": { "protein": 22, "carbs": 28, "fat": 16, "fiber": 5, "calories": 340 }
+          },
+          "lunch": {
+            "name": "Tuna & Rice Cake Plate",
+            "items": ["4oz tuna in water", "4 GF rice cakes", "½ avocado", "Cucumber slices", "Lemon juice"],
+            "macros": { "protein": 30, "carbs": 24, "fat": 14, "fiber": 4, "calories": 338 }
+          },
+          "snacks": {
+            "name": "Afternoon Snack",
+            "items": ["1oz almonds", "1 string cheese", "Apple slices"],
+            "macros": { "protein": 18, "carbs": 20, "fat": 10, "fiber": 3, "calories": 242 }
+          },
+          "dinner": {
+            "name": "Crockpot Beef Taco Bowl",
+            "items": ["4oz shredded beef chuck", "½ cup brown rice", "½ cup black beans", "Pico de gallo, lime"],
+            "macros": { "protein": 38, "carbs": 44, "fat": 16, "fiber": 8, "calories": 474 },
+            "gfSwap": "Use corn tortillas or rice base — no flour"
+          }
+        }
+      },
+      {
+        "date": "2025-07-01",
+        "dayLabel": "Tue",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "GF Avocado Egg Toast",
+            "items": ["2 eggs", "1 slice GF bread", "½ avocado", "Red pepper flakes"],
+            "macros": { "protein": 22, "carbs": 28, "fat": 16, "fiber": 5, "calories": 340 }
+          },
+          "lunch": {
+            "name": "Salmon Salad Bowl",
+            "items": ["4oz canned salmon", "Mixed greens", "½ avocado", "Cherry tomatoes", "GF balsamic vinaigrette"],
+            "macros": { "protein": 32, "carbs": 16, "fat": 18, "fiber": 5, "calories": 350 }
+          },
+          "snacks": {
+            "name": "Afternoon Snack",
+            "items": ["1oz almonds", "1 string cheese", "Grapes (1 cup)"],
+            "macros": { "protein": 16, "carbs": 28, "fat": 10, "fiber": 3, "calories": 266 }
+          },
+          "dinner": {
+            "name": "Sheet Pan Salmon & Sweet Potato",
+            "items": ["4oz salmon fillet", "1 small sweet potato", "1 cup green beans", "Lemon-garlic, tamari"],
+            "macros": { "protein": 34, "carbs": 36, "fat": 14, "fiber": 6, "calories": 410 },
+            "gfSwap": "Use tamari instead of soy sauce"
+          }
+        }
+      },
+      {
+        "date": "2025-07-02",
+        "dayLabel": "Wed",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "GF Greek Yogurt Parfait",
+            "items": ["1 cup 0% Greek yogurt", "½ cup GF granola", "½ cup mixed berries", "1 tsp honey"],
+            "macros": { "protein": 24, "carbs": 48, "fat": 8, "fiber": 4, "calories": 360 }
+          },
+          "lunch": {
+            "name": "Tuna & Rice Cake Plate",
+            "items": ["4oz tuna in water", "4 GF rice cakes", "½ avocado", "Celery sticks"],
+            "macros": { "protein": 30, "carbs": 24, "fat": 14, "fiber": 4, "calories": 338 }
+          },
+          "snacks": {
+            "name": "Afternoon Snack",
+            "items": ["1oz almonds", "1 string cheese", "Apple slices"],
+            "macros": { "protein": 18, "carbs": 20, "fat": 10, "fiber": 3, "calories": 242 }
+          },
+          "dinner": {
+            "name": "Ground Turkey Stir-Fry",
+            "items": ["4oz ground turkey", "½ cup jasmine rice", "Broccoli, snap peas, carrots", "Tamari, ginger"],
+            "macros": { "protein": 36, "carbs": 42, "fat": 12, "fiber": 5, "calories": 420 },
+            "gfSwap": "Use tamari instead of soy sauce"
+          }
+        }
+      },
+      {
+        "date": "2025-07-03",
+        "dayLabel": "Thu",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "GF Avocado Egg Toast",
+            "items": ["2 eggs", "1 slice GF bread", "½ avocado", "Everything bagel seasoning"],
+            "macros": { "protein": 22, "carbs": 28, "fat": 16, "fiber": 5, "calories": 340 }
+          },
+          "lunch": {
+            "name": "Salmon Salad Bowl",
+            "items": ["4oz canned salmon", "Mixed greens", "½ avocado", "Cucumber, radishes", "Lemon-tahini drizzle"],
+            "macros": { "protein": 32, "carbs": 16, "fat": 20, "fiber": 5, "calories": 368 }
+          },
+          "snacks": {
+            "name": "Afternoon Snack",
+            "items": ["1oz almonds", "1 string cheese", "Orange slices"],
+            "macros": { "protein": 16, "carbs": 22, "fat": 10, "fiber": 3, "calories": 242 }
+          },
+          "dinner": {
+            "name": "Crockpot Beef Taco Bowl",
+            "items": ["4oz shredded beef chuck", "½ cup brown rice", "½ cup pinto beans", "Jalapeño, lime, cilantro"],
+            "macros": { "protein": 38, "carbs": 44, "fat": 16, "fiber": 8, "calories": 474 },
+            "gfSwap": "Use corn tortillas or rice base — no flour"
+          }
+        }
+      },
+      {
+        "date": "2025-07-04",
+        "dayLabel": "Fri",
+        "freeNight": true,
+        "meals": {
+          "breakfast": {
+            "name": "GF Greek Yogurt Parfait",
+            "items": ["1 cup 0% Greek yogurt", "½ cup GF granola", "½ cup blueberries"],
+            "macros": { "protein": 24, "carbs": 46, "fat": 8, "fiber": 4, "calories": 352 }
+          },
+          "lunch": {
+            "name": "Tuna & Rice Cake Plate",
+            "items": ["4oz tuna in water", "4 GF rice cakes", "½ avocado"],
+            "macros": { "protein": 30, "carbs": 24, "fat": 14, "fiber": 3, "calories": 338 }
+          },
+          "snacks": {
+            "name": "Afternoon Snack",
+            "items": ["1oz almonds", "1 string cheese"],
+            "macros": { "protein": 14, "carbs": 4, "fat": 10, "fiber": 1, "calories": 162 }
+          },
+          "dinner": null
+        }
+      },
+      {
+        "date": "2025-07-05",
+        "dayLabel": "Sat",
+        "freeNight": true,
+        "meals": {
+          "breakfast": {
+            "name": "GF Avocado Egg Toast",
+            "items": ["2 eggs", "1 slice GF bread", "½ avocado"],
+            "macros": { "protein": 22, "carbs": 28, "fat": 16, "fiber": 5, "calories": 340 }
+          },
+          "lunch": {
+            "name": "Salmon Salad Bowl",
+            "items": ["4oz canned salmon", "Mixed greens", "½ avocado", "Cherry tomatoes"],
+            "macros": { "protein": 32, "carbs": 14, "fat": 18, "fiber": 5, "calories": 342 }
+          },
+          "snacks": {
+            "name": "Afternoon Snack",
+            "items": ["1oz almonds", "String cheese"],
+            "macros": { "protein": 14, "carbs": 4, "fat": 10, "fiber": 1, "calories": 162 }
+          },
+          "dinner": null
+        }
+      },
+      {
+        "date": "2025-07-06",
+        "dayLabel": "Sun",
+        "freeNight": false,
+        "meals": {
+          "breakfast": {
+            "name": "GF Greek Yogurt Parfait",
+            "items": ["1 cup 0% Greek yogurt", "½ cup GF granola", "½ cup strawberries", "1 tsp honey"],
+            "macros": { "protein": 24, "carbs": 48, "fat": 8, "fiber": 4, "calories": 360 }
+          },
+          "lunch": {
+            "name": "Tuna & Rice Cake Plate",
+            "items": ["4oz tuna in water", "4 GF rice cakes", "½ avocado", "Cucumber"],
+            "macros": { "protein": 30, "carbs": 24, "fat": 14, "fiber": 4, "calories": 338 }
+          },
+          "snacks": {
+            "name": "Afternoon Snack",
+            "items": ["1oz almonds", "1 string cheese", "Apple slices"],
+            "macros": { "protein": 18, "carbs": 20, "fat": 10, "fiber": 3, "calories": 242 }
+          },
+          "dinner": {
+            "name": "Crockpot Beef Taco Bowl",
+            "items": ["4oz shredded beef chuck", "½ cup brown rice", "½ cup black beans", "Pico de gallo, lime"],
+            "macros": { "protein": 38, "carbs": 44, "fat": 16, "fiber": 8, "calories": 474 },
+            "gfSwap": "Use corn tortillas or rice base — no flour"
+          }
+        }
+      }
+    ]
+  },
+  "grocery": {
+    "produce": [
+      { "name": "Bananas (3 lbs)", "have": false, "gf": false },
+      { "name": "Gala Apples (7 large)", "have": false, "gf": false },
+      { "name": "Avocados (6)", "have": false, "gf": false },
+      { "name": "Baby Spinach (5oz bag)", "have": false, "gf": false },
+      { "name": "Broccoli (3 crowns)", "have": false, "gf": false },
+      { "name": "Sweet Potatoes (3 medium)", "have": true, "gf": false },
+      { "name": "Mixed Greens (5oz)", "have": false, "gf": false },
+      { "name": "Cherry Tomatoes (1 pint)", "have": false, "gf": false },
+      { "name": "Cucumber (2)", "have": false, "gf": false },
+      { "name": "Strawberries (1 lb)", "have": false, "gf": false },
+      { "name": "Blueberries (1 pint)", "have": false, "gf": false }
+    ],
+    "proteins": [
+      { "name": "Chicken Breasts (4 lbs)", "have": false, "gf": false },
+      { "name": "Salmon Fillets (3 lbs)", "have": false, "gf": false },
+      { "name": "Beef Chuck Roast (3 lbs)", "have": false, "gf": false },
+      { "name": "Ground Turkey 93% lean (2 lbs)", "have": false, "gf": false },
+      { "name": "Canned Tuna in Water (8 cans)", "have": false, "gf": false },
+      { "name": "Eggs (1 dozen)", "have": true, "gf": false },
+      { "name": "Liquid Egg Whites (32oz)", "have": false, "gf": false },
+      { "name": "Protein Powder (vanilla)", "have": true, "gf": false }
+    ],
+    "pantry": [
+      { "name": "Rolled Oats (42oz)", "have": true, "gf": false },
+      { "name": "Jasmine Rice (5 lbs)", "have": true, "gf": false },
+      { "name": "Brown Rice (2 lbs)", "have": false, "gf": false },
+      { "name": "Farro (1 lb)", "have": false, "gf": false },
+      { "name": "GF Rice Cakes (1 bag)", "have": false, "gf": true },
+      { "name": "GF Bread (1 loaf)", "have": false, "gf": true },
+      { "name": "GF Granola (10oz)", "have": false, "gf": true },
+      { "name": "Tamari (GF soy sauce)", "have": false, "gf": true },
+      { "name": "Coconut Aminos", "have": true, "gf": false },
+      { "name": "Black Beans (2 cans)", "have": false, "gf": false },
+      { "name": "Pinto Beans (1 can)", "have": false, "gf": false },
+      { "name": "Pico de Gallo (16oz jar)", "have": false, "gf": false },
+      { "name": "Marinara Sauce (24oz jar)", "have": true, "gf": false },
+      { "name": "Almonds 1oz packs (7)", "have": false, "gf": false },
+      { "name": "Honey (12oz)", "have": true, "gf": false },
+      { "name": "Creatine Monohydrate", "have": true, "gf": false },
+      { "name": "Everything Bagel Seasoning", "have": true, "gf": false }
+    ],
+    "dairy": [
+      { "name": "Greek Yogurt 0% (32oz)", "have": false, "gf": false },
+      { "name": "String Cheese (12 ct)", "have": false, "gf": false },
+      { "name": "Low-fat Cheese Slices", "have": false, "gf": false }
+    ],
+    "frozen": [
+      { "name": "Green Beans (1 lb bag)", "have": false, "gf": false }
+    ]
+  },
+  "prep": [
+    {
+      "emoji": "⏰",
+      "title": "Sunday Strategy",
+      "body": "Start crockpot beef first (7–8 hrs LOW). While it cooks: batch-bake chicken breasts and salmon on separate sheet pans, cook jasmine rice (rice cooker) and brown rice (stovetop) simultaneously, roast two pans of veg. Boil turkey meatballs last. Portion Shayna's meals separately into smaller containers. Active time: ~65 min.",
+      "reheat": "Everything is grab-and-go Mon–Thu. Salmon is best within 3 days — use Tue/Wed first."
+    },
+    {
+      "emoji": "🍗",
+      "title": "Chicken Breast (4 lbs)",
+      "body": "Season half with garlic powder, Italian herbs, salt, pepper. Season other half with taco spice blend. Bake at 400°F for 22–25 min until 165°F internal temp. Rest 5 min, then slice or shred. Portion: 6oz for Shane, set aside. Fridge life: 5 days.",
+      "reheat": "Microwave with damp paper towel, 90 sec at 70% power. Or slice cold onto salad."
+    },
+    {
+      "emoji": "🐟",
+      "title": "Salmon Fillets (3 lbs)",
+      "body": "Pat dry, season with salt, pepper, lemon zest, garlic. Bake at 400°F for 12–15 min. Do not overcook — just opaque in center. Portion: 7oz for Shane (2 servings), 4oz for Shayna (2 servings). Fridge life: 3 days max.",
+      "reheat": "Microwave 60 sec at 60% power, or eat cold/room temp over salad."
+    },
+    {
+      "emoji": "🥩",
+      "title": "Crockpot Beef Chuck (3 lbs)",
+      "body": "Place beef in crockpot with ½ cup GF beef broth, 1 tbsp cumin, 1 tbsp chili powder, 1 tsp garlic powder, salt, pepper. Cook LOW 7–8 hours. Shred with two forks. Mix in 2 tbsp cooking liquid. Portion: 6oz for Shane (Mon, Thu, Sun), 4oz for Shayna (Mon, Thu, Sun). Fridge life: 5 days.",
+      "reheat": "Microwave 90 sec with splash of broth to prevent drying."
+    },
+    {
+      "emoji": "🍚",
+      "title": "Rice (All Types)",
+      "body": "Jasmine rice: cook 3 cups dry in rice cooker with 4.5 cups water. Brown rice: 2 cups dry on stovetop, 45 min. Farro: 1 cup dry simmered 25 min in salted water. Portion rice into weekly containers. Fridge life: 5 days.",
+      "reheat": "Microwave with damp paper towel, 90 sec. Fluff with fork."
+    },
+    {
+      "emoji": "🥦",
+      "title": "Roasted Vegetables",
+      "body": "Toss broccoli, asparagus, green beans, zucchini with olive oil spray, salt, pepper, garlic powder. Roast at 425°F for 18–22 min on two sheet pans, rotating once. Roast in batches if needed. Keep varieties separate for portioning flexibility. Fridge life: 4 days.",
+      "reheat": "Microwave 60 sec, or eat room temp. Re-crisp in air fryer 3 min at 375°F."
+    },
+    {
+      "emoji": "🍖",
+      "title": "Turkey Meatballs (2 lbs ground)",
+      "body": "Mix ground turkey with 1 egg, ¼ cup GF breadcrumbs or almond flour, garlic powder, Italian seasoning, salt, pepper. Roll into 1.5oz balls (~20 total). Bake 400°F for 18–20 min or until 165°F. Portion: 7oz for Shane (2 servings), set Shayna's aside for salad. Fridge life: 4 days.",
+      "reheat": "Microwave 75 sec with splash of marinara sauce to keep moist."
+    }
+  ]
+}
