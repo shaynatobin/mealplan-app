@@ -38,6 +38,7 @@ const state = {
   activeTab:   'plan',
   boosts:      {},     // { "2025-06-30": { protein: 30, carbs: 60 } }
   swaps:       { shane: {}, shayna: {} }, // { "2025-06-30_dinner": mealObj }
+  extras:      { shane: {}, shayna: {} }, // { "2025-06-30": [{ id, name, meal, macros }] }
   notes:       { shane: {}, shayna: {} }, // { "2025-06-30": "text" }
   grocery:     {},     // { itemId: true/false }
   targets:     { shane: { ...DEFAULT_TARGETS.shane }, shayna: { ...DEFAULT_TARGETS.shayna } },
@@ -58,6 +59,8 @@ function loadFromStorage() {
   state.notes.shayna = LS.get('mp_notes_shayna') || {};
   state.swaps.shane  = LS.get('mp_swaps_shane')  || {};
   state.swaps.shayna = LS.get('mp_swaps_shayna') || {};
+  state.extras.shane  = LS.get('mp_extras_shane')  || {};
+  state.extras.shayna = LS.get('mp_extras_shayna') || {};
 
   const st = LS.get('mp_targets_shane');
   const sy = LS.get('mp_targets_shayna');
@@ -76,6 +79,10 @@ function saveNotes()    {
 function saveSwaps()    {
   LS.set('mp_swaps_shane',  state.swaps.shane);
   LS.set('mp_swaps_shayna', state.swaps.shayna);
+}
+function saveExtras()   {
+  LS.set('mp_extras_shane',  state.extras.shane);
+  LS.set('mp_extras_shayna', state.extras.shayna);
 }
 function saveTargets()  {
   LS.set('mp_targets_shane',  state.targets.shane);
@@ -154,6 +161,17 @@ function getDayTotals(person, dateStr) {
     const meal = swap || day.meals[mt];
     if (!meal || !meal.macros) return;
     const m = meal.macros;
+    totals.protein  += m.protein  || 0;
+    totals.carbs    += m.carbs    || 0;
+    totals.fat      += m.fat      || 0;
+    totals.calories += m.calories || 0;
+    totals.fiber    += m.fiber    || 0;
+  });
+
+  // Add extras (off-plan foods)
+  const extras = state.extras[person][dateStr] || [];
+  extras.forEach(ex => {
+    const m = ex.macros || {};
     totals.protein  += m.protein  || 0;
     totals.carbs    += m.carbs    || 0;
     totals.fat      += m.fat      || 0;
@@ -280,6 +298,38 @@ function renderMealSection(person, dateStr, mealType, mealData, dayData) {
     </div>`;
 }
 
+/* ─── RENDER: EXTRAS SECTION ─────────────────────── */
+function renderExtrasSection(person, dateStr) {
+  const extras = state.extras[person][dateStr] || [];
+
+  const extrasHtml = extras.map(ex => {
+    const m = ex.macros || {};
+    return `
+      <div class="extra-item" data-id="${ex.id}" data-person="${person}" data-date="${dateStr}">
+        <div class="extra-item-info">
+          <div class="extra-item-name">${ex.name}</div>
+          <div class="extra-item-meta">
+            ${Math.round(m.calories || 0)} kcal &middot;
+            P${Math.round(m.protein || 0)}g
+            C${Math.round(m.carbs || 0)}g
+            F${Math.round(m.fat || 0)}g
+            <span class="extra-meal-badge">${ex.meal}</span>
+          </div>
+        </div>
+        <button class="extra-delete-btn" data-id="${ex.id}" data-person="${person}" data-date="${dateStr}" title="Remove">✕</button>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="extras-section" id="extras-section-${dateStr}">
+      <div class="extras-header">
+        <span class="extras-label">➕ Added Foods</span>
+        <button class="btn-add-food" data-person="${person}" data-date="${dateStr}">+ Add Food</button>
+      </div>
+      ${extrasHtml ? `<div class="extras-list">${extrasHtml}</div>` : ''}
+    </div>`;
+}
+
 /* ─── RENDER: BOOST PANEL ─────────────────────────── */
 function renderBoostPanel(dateStr) {
   const boost = state.boosts[dateStr] || { protein: 0, carbs: 0 };
@@ -374,8 +424,9 @@ function renderDayCard(person, dayData) {
     return renderMealSection(person, dateStr, mt, meal, dayData);
   }).join('');
 
-  const boostHtml = (person === 'shane') ? renderBoostPanel(dateStr) : '';
-  const notesHtml = renderNotesSection(person, dateStr);
+  const boostHtml  = (person === 'shane') ? renderBoostPanel(dateStr) : '';
+  const extrasHtml = renderExtrasSection(person, dateStr);
+  const notesHtml  = renderNotesSection(person, dateStr);
 
   return `
     <div class="day-card" id="day-card-${dateStr}" data-date="${dateStr}">
@@ -399,6 +450,7 @@ function renderDayCard(person, dayData) {
           ${totals ? renderMacroBars(totals, person) : '<div class="text-muted">No data</div>'}
         </div>
         ${mealsHtml}
+        ${extrasHtml}
         ${boostHtml}
         ${notesHtml}
       </div>
@@ -486,6 +538,23 @@ function bindDayCardEvents() {
       saveSwaps();
       refreshDayCard(person, date);
       showToast('Meal restored to original');
+    });
+  });
+
+  /* Add food buttons */
+  document.querySelectorAll('.btn-add-food').forEach(btn => {
+    btn.addEventListener('click', () => {
+      openAddFoodModal(btn.dataset.person, btn.dataset.date);
+    });
+  });
+
+  /* Delete extra */
+  document.querySelectorAll('.extra-delete-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const { id, person, date } = btn.dataset;
+      state.extras[person][date] = (state.extras[person][date] || []).filter(e => e.id !== id);
+      saveExtras();
+      refreshDayCard(person, date);
     });
   });
 
@@ -830,6 +899,17 @@ function exportMFP(person) {
       ]);
     });
 
+    /* Extras (off-plan foods) */
+    const extras = state.extras[person][dateStr] || [];
+    extras.forEach(ex => {
+      const m = ex.macros || {};
+      rows.push([
+        dateStr, ex.meal || 'Other', ex.name, 1, 'serving',
+        Math.round(m.calories || 0), Math.round(m.carbs || 0),
+        Math.round(m.fat || 0), Math.round(m.protein || 0), 0, 0,
+      ]);
+    });
+
     /* Shane boost line */
     if (person === 'shane') {
       const boost = state.boosts[dateStr];
@@ -923,6 +1003,61 @@ function showWelcome() {
   document.getElementById('app').classList.add('hidden');
 }
 
+/* ─── ADD FOOD MODAL ──────────────────────────────── */
+const addCtx = { person: null, date: null, pendingFood: null, pendingServingG: null, searchSource: 'usda' };
+
+function openAddFoodModal(person, date) {
+  addCtx.person = person;
+  addCtx.date   = date;
+  addCtx.pendingFood = null;
+
+  /* Reuse the swap modal but in "add" mode */
+  document.getElementById('swap-modal-title').textContent = 'Add Food';
+  document.getElementById('modal-swap').dataset.mode = 'add';
+  document.getElementById('modal-swap').classList.remove('hidden');
+  document.getElementById('swap-search-panel').classList.remove('hidden');
+  document.getElementById('swap-scan-panel').classList.add('hidden');
+  document.getElementById('swap-confirm-panel').classList.add('hidden');
+  document.getElementById('swap-search-results').innerHTML = '';
+  document.getElementById('swap-search-input').value = '';
+
+  document.getElementById('swap-mode-search').classList.add('active');
+  document.getElementById('swap-mode-scan').classList.remove('active');
+
+  /* Show meal selector in confirm panel */
+  document.getElementById('swap-confirm-btn').textContent = '✓ Add to Day';
+}
+
+function confirmAddFood() {
+  const food = addCtx.pendingFood;
+  if (!food) return;
+
+  const factor = addCtx.pendingServingG / (food.servingG || 100);
+  const mealSelect = document.getElementById('add-meal-select');
+  const meal = mealSelect ? mealSelect.value : 'Other';
+
+  const extra = {
+    id:    Date.now().toString(),
+    name:  food.name,
+    meal,
+    macros: {
+      calories: Math.round((food.calories || 0) * factor),
+      protein:  Math.round((food.protein  || 0) * factor),
+      carbs:    Math.round((food.carbs    || 0) * factor),
+      fat:      Math.round((food.fat      || 0) * factor),
+    },
+  };
+
+  if (!state.extras[addCtx.person][addCtx.date]) {
+    state.extras[addCtx.person][addCtx.date] = [];
+  }
+  state.extras[addCtx.person][addCtx.date].push(extra);
+  saveExtras();
+  closeSwapModal();
+  refreshDayCard(addCtx.person, addCtx.date);
+  showToast('Food added!');
+}
+
 /* ─── SWAP MODAL ──────────────────────────────────── */
 /* Swap state */
 const swapCtx = {
@@ -939,14 +1074,15 @@ function openSwapModal(person, date, meal, mealName) {
   swapCtx.pendingFood = null;
 
   document.getElementById('swap-modal-title').textContent = `Swap: ${mealName}`;
+  document.getElementById('modal-swap').dataset.mode = 'swap';
   document.getElementById('modal-swap').classList.remove('hidden');
   document.getElementById('swap-search-panel').classList.remove('hidden');
   document.getElementById('swap-scan-panel').classList.add('hidden');
   document.getElementById('swap-confirm-panel').classList.add('hidden');
   document.getElementById('swap-search-results').innerHTML = '';
   document.getElementById('swap-search-input').value = '';
+  document.getElementById('swap-confirm-btn').textContent = '✓ Confirm Swap';
 
-  /* Reset mode buttons */
   document.getElementById('swap-mode-search').classList.add('active');
   document.getElementById('swap-mode-scan').classList.remove('active');
 }
@@ -959,19 +1095,29 @@ function closeSwapModal() {
   }
 }
 
-function showSwapConfirm(food) {
-  swapCtx.pendingFood = food;
-  swapCtx.pendingServingG = food.servingG || 100;
+function isAddMode() {
+  return document.getElementById('modal-swap').dataset.mode === 'add';
+}
 
+function showSwapConfirm(food) {
+  if (isAddMode()) {
+    addCtx.pendingFood = food;
+    addCtx.pendingServingG = food.servingG || 100;
+  } else {
+    swapCtx.pendingFood = food;
+    swapCtx.pendingServingG = food.servingG || 100;
+  }
   document.getElementById('swap-confirm-panel').classList.remove('hidden');
   renderSwapConfirmCard();
 }
 
 function renderSwapConfirmCard() {
-  const food = swapCtx.pendingFood;
+  const addMode = isAddMode();
+  const ctx  = addMode ? addCtx : swapCtx;
+  const food = ctx.pendingFood;
   if (!food) return;
 
-  const factor = swapCtx.pendingServingG / (food.servingG || 100);
+  const factor = ctx.pendingServingG / (food.servingG || 100);
   const m = {
     calories: Math.round((food.calories || 0) * factor),
     protein:  Math.round((food.protein  || 0) * factor),
@@ -979,13 +1125,26 @@ function renderSwapConfirmCard() {
     fat:      Math.round((food.fat      || 0) * factor),
   };
 
+  const mealSelector = addMode ? `
+    <div class="serving-adjuster">
+      <label>Meal:</label>
+      <select id="add-meal-select" class="serving-input" style="width:120px;text-align:left">
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="Snacks">Snacks</option>
+        <option value="Dinner">Dinner</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>` : '';
+
   document.getElementById('swap-confirm-card').innerHTML = `
     <div class="confirm-food-name">${food.name}</div>
     <div class="serving-adjuster">
       <label>Serving (g):</label>
       <input type="number" class="serving-input" id="serving-input-val"
-        value="${swapCtx.pendingServingG}" min="1" max="2000" />
+        value="${ctx.pendingServingG}" min="1" max="2000" />
     </div>
+    ${mealSelector}
     <div class="confirm-macros">
       <div class="confirm-macro-item">
         <div class="confirm-macro-val">${m.calories}</div>
@@ -1006,7 +1165,7 @@ function renderSwapConfirmCard() {
     </div>`;
 
   document.getElementById('serving-input-val').addEventListener('input', (e) => {
-    swapCtx.pendingServingG = parseFloat(e.target.value) || 100;
+    ctx.pendingServingG = parseFloat(e.target.value) || 100;
     renderSwapConfirmCard();
   });
 }
@@ -1261,11 +1420,14 @@ function bindGlobalEvents() {
   searchBtn?.addEventListener('click', doSearch);
   searchInput?.addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(); });
 
-  /* Swap confirm / cancel */
-  document.getElementById('swap-confirm-btn')?.addEventListener('click', confirmSwap);
+  /* Swap / Add confirm & cancel */
+  document.getElementById('swap-confirm-btn')?.addEventListener('click', () => {
+    if (isAddMode()) confirmAddFood(); else confirmSwap();
+  });
   document.getElementById('swap-cancel-btn')?.addEventListener('click', () => {
     document.getElementById('swap-confirm-panel').classList.add('hidden');
     swapCtx.pendingFood = null;
+    addCtx.pendingFood  = null;
   });
 }
 

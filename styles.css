@@ -540,6 +540,103 @@ a { color: var(--person); }
 }
 
 /* ════════════════════════════════════════════════════
+   EXTRAS SECTION (off-plan foods)
+════════════════════════════════════════════════════ */
+.extras-section {
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+}
+
+.extras-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.extras-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.btn-add-food {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--person);
+  border: 1.5px solid var(--person);
+  border-radius: var(--radius-pill);
+  padding: 5px 12px;
+  min-height: 32px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-add-food:hover { background: var(--person); color: #fff; }
+
+.extras-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 0.5rem;
+}
+
+.extra-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.75rem;
+}
+
+.extra-item-info { flex: 1; min-width: 0; }
+
+.extra-item-name {
+  font-size: 0.87rem;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.extra-item-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.extra-meal-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: var(--person-light);
+  color: var(--person);
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+}
+
+.extra-delete-btn {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.extra-delete-btn:hover { background: #fef2f2; color: #dc2626; }
+
+/* ════════════════════════════════════════════════════
    DAY ADJUSTMENT (Shane workout boost)
 ════════════════════════════════════════════════════ */
 .boost-section {
