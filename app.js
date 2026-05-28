@@ -1117,14 +1117,6 @@ function renderSwapConfirmCard() {
   const food = ctx.pendingFood;
   if (!food) return;
 
-  const factor = ctx.pendingServingG / (food.servingG || 100);
-  const m = {
-    calories: Math.round((food.calories || 0) * factor),
-    protein:  Math.round((food.protein  || 0) * factor),
-    carbs:    Math.round((food.carbs    || 0) * factor),
-    fat:      Math.round((food.fat      || 0) * factor),
-  };
-
   const mealSelector = addMode ? `
     <div class="serving-adjuster">
       <label>Meal:</label>
@@ -1145,29 +1137,45 @@ function renderSwapConfirmCard() {
         value="${ctx.pendingServingG}" min="1" max="2000" />
     </div>
     ${mealSelector}
-    <div class="confirm-macros">
-      <div class="confirm-macro-item">
-        <div class="confirm-macro-val">${m.calories}</div>
-        <div class="confirm-macro-label">kcal</div>
-      </div>
-      <div class="confirm-macro-item">
-        <div class="confirm-macro-val">${m.protein}g</div>
-        <div class="confirm-macro-label">protein</div>
-      </div>
-      <div class="confirm-macro-item">
-        <div class="confirm-macro-val">${m.carbs}g</div>
-        <div class="confirm-macro-label">carbs</div>
-      </div>
-      <div class="confirm-macro-item">
-        <div class="confirm-macro-val">${m.fat}g</div>
-        <div class="confirm-macro-label">fat</div>
-      </div>
-    </div>`;
+    <div class="confirm-macros" id="confirm-macros-display"></div>`;
+
+  updateConfirmMacros(ctx);
 
   document.getElementById('serving-input-val').addEventListener('input', (e) => {
     ctx.pendingServingG = parseFloat(e.target.value) || 100;
-    renderSwapConfirmCard();
+    updateConfirmMacros(ctx);
   });
+}
+
+function updateConfirmMacros(ctx) {
+  const food = ctx.pendingFood;
+  if (!food) return;
+  const factor = ctx.pendingServingG / (food.servingG || 100);
+  const m = {
+    calories: Math.round((food.calories || 0) * factor),
+    protein:  Math.round((food.protein  || 0) * factor),
+    carbs:    Math.round((food.carbs    || 0) * factor),
+    fat:      Math.round((food.fat      || 0) * factor),
+  };
+  const el = document.getElementById('confirm-macros-display');
+  if (!el) return;
+  el.innerHTML = `
+    <div class="confirm-macro-item">
+      <div class="confirm-macro-val">${m.calories}</div>
+      <div class="confirm-macro-label">kcal</div>
+    </div>
+    <div class="confirm-macro-item">
+      <div class="confirm-macro-val">${m.protein}g</div>
+      <div class="confirm-macro-label">protein</div>
+    </div>
+    <div class="confirm-macro-item">
+      <div class="confirm-macro-val">${m.carbs}g</div>
+      <div class="confirm-macro-label">carbs</div>
+    </div>
+    <div class="confirm-macro-item">
+      <div class="confirm-macro-val">${m.fat}g</div>
+      <div class="confirm-macro-label">fat</div>
+    </div>`;
 }
 
 function confirmSwap() {
@@ -1222,6 +1230,10 @@ async function searchFoods(query, source) {
       el.addEventListener('click', () => {
         const food = results[parseInt(el.dataset.idx)];
         showSwapConfirm(food);
+        /* Scroll confirm panel into view on mobile */
+        setTimeout(() => {
+          document.getElementById('swap-confirm-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
       });
     });
 
@@ -1232,20 +1244,38 @@ async function searchFoods(query, source) {
 
 async function searchUSDA(query) {
   const key = state.usdaKey || 'DEMO_KEY';
-  const url = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(query)}&api_key=${key}&pageSize=10&dataType=Foundation,SR%20Legacy`;
+  const url = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(query)}&api_key=${key}&pageSize=15&dataType=SR%20Legacy,Foundation`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`USDA API error ${res.status}`);
   const data = await res.json();
 
   return (data.foods || []).map(f => {
-    const nutr = (id) => (f.foodNutrients || []).find(n => n.nutrientId === id)?.value || 0;
+    const nutrients = f.foodNutrients || [];
+
+    /* Primary lookup by standard nutrient IDs (works for SR Legacy) */
+    const byId = (id) => nutrients.find(n => n.nutrientId === id)?.value || 0;
+
+    /* Fallback: name-based lookup (for Foundation foods with different structure) */
+    const byName = (keyword) => {
+      const match = nutrients.find(n =>
+        n.nutrientName?.toLowerCase().includes(keyword) &&
+        !n.nutrientName?.toLowerCase().includes('fatty')
+      );
+      return match?.value || 0;
+    };
+
+    let calories = byId(1008) || byName('energy');
+    let protein  = byId(1003) || byName('protein');
+    let carbs    = byId(1005) || byName('carbohydrate');
+    let fat      = byId(1004) || byName('lipid');
+
     return {
-      name:     f.description || f.lowercaseDescription || 'Unknown',
+      name:     f.description || 'Unknown',
       servingG: 100,
-      calories: Math.round(nutr(1008)),
-      protein:  Math.round(nutr(1003)),
-      carbs:    Math.round(nutr(1005)),
-      fat:      Math.round(nutr(1004)),
+      calories: Math.round(calories),
+      protein:  Math.round(protein),
+      carbs:    Math.round(carbs),
+      fat:      Math.round(fat),
     };
   }).filter(f => f.calories > 0);
 }
@@ -1400,12 +1430,13 @@ function bindGlobalEvents() {
     startScanner();
   });
 
-  /* Source toggle (USDA vs OFF) */
+  /* Source toggle (USDA vs OFF) — shared between swap and add modes */
   document.querySelectorAll('.source-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.source-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       swapCtx.searchSource = btn.dataset.source;
+      addCtx.searchSource  = btn.dataset.source;
     });
   });
 
@@ -1415,7 +1446,8 @@ function bindGlobalEvents() {
   const doSearch = () => {
     const q = searchInput.value.trim();
     if (!q) return;
-    searchFoods(q, swapCtx.searchSource);
+    const source = document.querySelector('.source-btn.active')?.dataset.source || 'usda';
+    searchFoods(q, source);
   };
   searchBtn?.addEventListener('click', doSearch);
   searchInput?.addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(); });
